@@ -5,7 +5,7 @@
 SmartChat is a beginner-friendly AI chatbot built using **Dart** programming language and the **Gemini API**. The objective of this project is to help learners understand how to build a simple but functional AI chatbot while learning how to work with APIs, environment variables, and Dart programming basics. This toolkit documents the full journey from setup to completion so that anyone can follow and build their own AI chatbot.
 
 
-## 3. System Requirements
+## 2. System Requirements
 
 To build and run the SmartChat AI project using Dart, the following tools and resources are required:
 
@@ -21,7 +21,7 @@ To build and run the SmartChat AI project using Dart, the following tools and re
 
 
 
-## 4. Installation & Setup Instructions
+## 3. Installation & Setup Instructions
 
 ### Step 1: Install Dart SDK
 
@@ -86,11 +86,8 @@ Gemini_API_KEY=your_Geminiai_api_key_here
 
 ⚠️ Do NOT share your API key publicly.
 
-### Step 6: Create Service File
 
-Create a folder called `services` inside `lib` and create a file named `Gemini_service.dart` inside it.
-
-### Step 7: Run the Project
+### Step 6: Run the Project
 
 Test the default Dart console program:
 
@@ -122,7 +119,7 @@ Bot: An API (Application Programming Interface) allows software systems to commu
 ```
 
 
-## 5. Common Issues & Fixes
+## 4. Common Issues & Fixes
 
 During the development of SmartChat, several common issues were encountered. Below are the problems and how they were solved.
 
@@ -186,7 +183,7 @@ String reply = await Gemini.sendMessage(userInput);
 **Cause:** Network issue.
 **Fix:** Add error message in code for failed API request.
 
-## 6. How to solve errors with AI Prompts
+## 5. How to solve errors with AI Prompts
 During the development of SmartChat, some AI Prompt were used to solve some of the problems. Ensure you have an account with Claude Ai or ChatGpt. Here are some example:
 ```
 I'm a junior developer who just started learning dart programming language. I need help understanding the project structure and technology stack.
@@ -316,8 +313,42 @@ I'm particularly unfamiliar with dart programming language mentioned in the erro
 ```
 Expected Output Example:
 ```bash
+1) What the error means (plain English)
 
-## 7. References
+The API replied with 404 NOT_FOUND and a message:
+
+"models/gemini-pro is not found for API version v1beta, or is not supported for generateContent."
+
+In plain terms:
+
+Your program asked Google’s Generative Language API to use a model called gemini-pro using the v1beta endpoint.
+
+The server replied: that model or that method is not available for that API version — the model name or endpoint is incorrect or unsupported.
+
+This is not a Dart runtime error — it’s an HTTP/API-level error returned by Google’s servers.
+
+2) Which stack-trace lines are most relevant
+
+You didn’t paste a full stack trace, but for this class of error you should look for lines that reference your files — e.g.:
+
+lib/services/gemini_service.dart:XX — (where you make the HTTP POST)
+
+bin/smartchat.dart:YY — (where you call the service)
+
+Any lines showing http.post(...) or jsonDecode(...) — those show where you sent the request and handled the response.
+
+Action: Search your stack trace for lines containing lib/services/gemini_service.dart (or whichever file contains sendMessage) and bin/smartchat.dart. Those are the lines to inspect first.
+
+3) Most likely causes (2–3)
+
+Wrong model name or API path — e.g. using models/gemini-pro with v1beta while Google expects v1 and a different model id (like gemini-1.5-flash or gemini-1.5-pro).
+
+Unsupported method for that model/version — some models don’t support generateContent or the endpoint you called.
+
+Account or access mismatch — the model exists but your project/account doesn’t have access to it (less common, but possible)
+```
+
+## 6. References
 
 Below are the main resources used during research and development of the SmartChat project:
 
