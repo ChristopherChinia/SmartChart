@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # See https://www.dartlang.org/guides/libraries/private-files
 
 # Files and directories created by pub
@@ -27,3 +28,13 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+=======
+# https://dart.dev/guides/libraries/private-files
+# Created by `dart pub`
+.dart_tool/
+.env
+analysis_options.yaml
+changelog.md
+test/smartchat_test.dart
+lib/smartchat.dart
+>>>>>>> 5ab2da7 (Resolved merge conflicts)
