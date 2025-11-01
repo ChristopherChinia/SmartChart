@@ -45,6 +45,10 @@ dart create -t smartchart .
 ```
 
 ### Step 3: Open the Project in VS Code
+You can also clone the repository and download it in your local computer.
+```bash
+git clone
+```
 
 ```bash
 code .
@@ -80,7 +84,7 @@ Gemini_API_KEY=your_Geminiai_api_key_here
 
 ### Step 6: Create Service File
 
-Create a folder called `services` inside `lib` and create a file named `openai_service.dart` inside it.
+Create a folder called `services` inside `lib` and create a file named `Gemini_service.dart` inside it.
 
 ### Step 7: Run the Project
 
@@ -90,37 +94,26 @@ Test the default Dart console program:
 dart run
 ```
 
-If it prints **Hello, 42**, setup is successful.
+If it prints 
+🤖 SmartChat AI Bot Activated!
+You:
+ setup is successful.
 
 
 ### Step 8: AI-Powered Chatbot
 
 This version uses the Gemini API to generate intelligent responses.
 
-```dart
-import 'dart:io';
-import 'package:dotenv/dotenv.dart' show load;
-import '../lib/services/Gemini_service.dart';
-
-void main() async {
-  load();
-  final openAI = OpenAIService();
-  print("SmartChat AI Mode");
-
-  while (true) {
-    stdout.write("You: ");
-    String? userInput = stdin.readLineSync();
-    if (userInput == null || userInput.toLowerCase() == "exit") break;
-    String reply = await openAI.sendMessage(userInput);
-    print("Bot: $reply");
-  }
-}
+```
+🤖 SmartChat AI Bot Activated!
+Type 'exit' to end the chat.
+You: What is an API?
+  
 ```
 
 Expected Output Example:
 
 ```
-You: What is an API?
 Bot: An API (Application Programming Interface) allows software systems to communicate.
 ```
 
@@ -190,7 +183,7 @@ String reply = await Gemini.sendMessage(userInput);
 **Fix:** Add error message in code for failed API request.
 
 ## 6. How to solve errors with AI Prompts
-During the development of SmartChat, Issued some AI Prompt to solve some of the problems here are some example:
+During the development of SmartChat, some AI Prompt were used to solve some of the problems. Ensure you have an account with Claude Ai or ChatGpt. Here are some example:
 ```
 I'm a junior developer who just started learning dart programming language. I need help understanding the project structure and technology stack.
 
@@ -199,10 +192,26 @@ I'd like to understand:
 - The folder structure seems to follow [pattern you've observed]
 
 Project structure:
-[Paste concise directory structure - limit to top-level folders and key subfolders]
+smartchat/
+ ├─ bin/
+ │   └─ smartchat.dart
+ ├─ lib/
+ │   └─ services/
+ │       └─ gemini_service.dart
+ ├─ .env
+ ├─ .env.example
+ ├─ pubspec.yaml
+ ├─ .gitignore
 
 Key configuration files:
-[Paste relevant sections from package.json/pom.xml/requirements.txt/Gemfile, docker files, etc.]
+smartchat/
+ ├─ bin/
+ │   └─ smartchat.dart
+ ├─ lib/
+ │   └─ services/
+ │       └─ gemini_service.dart
+ ├─ pubspec.yaml
+
 
 Could you:
 1. Validate my understanding and correct any misconceptions
@@ -215,9 +224,94 @@ I'm particularly confused about [mention specific areas of confusion, if any].
 
 After your explanation, could you suggest a small exploration exercise I could do to verify my understanding of the project structure?
 ```
+Expected Output Example:
 ```bash
+Your understanding of the project structure is largely correct — you’ve accurately noticed the typical Dart package layout that’s common for console (CLI) apps and backend projects.
 
+Let’s break it down properly:
+
+✅ What you got right:
+
+The bin/ folder holds the entry point (smartchat.dart), where the app starts running.
+
+The lib/ folder contains reusable code modules, services, and business logic (in this case, your Gemini API handler).
+
+The .env file is used for private configuration (like API keys).
+
+The pubspec.yaml is Dart’s configuration and dependency manager, similar to package.json (Node.js) or pom.xml (Java).
+
+❌ Common misconception (to clarify):
+Dart is not only for Flutter (mobile) — it’s a general-purpose language.
+You’re using it here in a backend/CLI context, just like Python or Node.js, which is 100% valid and professional.
+
+2. Key Technologies, Frameworks, and Libraries Used
+Technology / File	Purpose
+Dart SDK	The main programming language (developed by Google).
+pubspec.yaml	Defines dependencies (like http and dotenv), project name, and version.
+dotenv	Reads key-value pairs from .env files. Similar to Python’s python-dotenv or Node’s dotenv package.
+http	A Dart library for making network requests (to Gemini API).
+Gemini API	Google’s AI model (you’re using gemini-1.5-flash or gemini-1.5-pro).
+GitHub Actions (optional if added)	Automates your workflow (like testing, running, or deploying your Dart app).
+
+So in short:
+Your stack = Dart (language) + HTTP client + Environment variable manager + Gemini AI API
+
+📂 3. Folder & File Structure Explained
+
+Here’s what each part of your structure means:
+
+smartchat/
+ ├─ bin/
+ │   └─ smartchat.dart        <-- Entry point (main function)
+ ├─ lib/
+ │   └─ services/
+ │       └─ gemini_service.dart  <-- Core logic for AI API requests
+ ├─ .env                      <-- Local API key (not committed to GitHub)
+ ├─ .env.example              <-- Example of what variables users should create
+ ├─ pubspec.yaml              <-- Project configuration & dependencies
+ ├─ .gitignore                <-- Hides sensitive or build files from Git
+
+ What happens when you run dart run
+
+Dart looks inside bin/ for a .dart file that has a main() function.
+
+It runs that file → which imports your GeminiService from lib/services/gemini_service.dart.
+
+GeminiService makes API calls to Gemini using your key from .env or system environment.
+
+So bin/smartchat.dart = "front of house" (runs logic)
+and lib/services/gemini_service.dart = "kitchen" (does the real work behind the scenes).
 ```
+Debugging
+```
+I need help understanding this error message from my dart application.
+
+Here's the complete error message and stack trace:
+
+ Bot: ⚠️ Error: {
+  "error": {
+    "code": 404,
+    "message": "models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "status": "NOT_FOUND"
+  }
+} 
+
+My application context:
+- This happened when I was trying to chat with the application after running dart run
+- The application is a Command line interface with Gemini api For smart responses
+- I'm using dart version 3.9.4 
+
+Could you:
+1. Explain what this error means in simple, non-technical terms
+2. Identify the most relevant lines in the stack trace (which ones actually point to my code)
+3. List 2-3 of the most likely causes based on this type of error
+4. Suggest what specific information I should look for in my code
+5. Provide a step-by-step debugging approach I could follow
+
+I'm particularly unfamiliar with dart programming language mentioned in the error, so extra explanation there would help.
+```
+Expected Output Example:
+```bash
 
 ## 7. References
 
@@ -235,4 +329,5 @@ Below are the main resources used during research and development of the SmartCh
 10. JSON Introduction – [https://www.json.org](https://www.json.org)
 11. Asynchronous Programming Concepts – [https://dart.dev/codelabs/async-await](https://dart.dev/codelabs/async-await)
 12. TutorialsPoint Dart Basics – [https://www.tutorialspoint.com/dart_programming](https://www.tutorialspoint.com/dart_programming)
+13. Gemini API Documentation – [https://platform.openai.com/docs](https://ai.google.dev/gemini-api/docs/quickstart)
 
