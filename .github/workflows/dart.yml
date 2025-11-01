@@ -1,0 +1,25 @@
+name: Run Dart Chatbot
+
+on:
+  workflow_dispatch:  # allows manual run
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: "stable"
+
+      - name: Get dependencies
+        run: dart pub get
+
+      - name: Run chatbot
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: dart run bin/smartchat.dart
