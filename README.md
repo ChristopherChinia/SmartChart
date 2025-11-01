@@ -45,11 +45,15 @@ dart create -t smartchart .
 ```
 
 ### Step 3: Open the Project in VS Code
-You can also clone the repository and download it in your local computer.
+You can also clone the repository and download it in your local computer from your Vs code.
 ```bash
-git clone
+git clone https://github.com/ChristopherChinia/SmartChart.git
 ```
-
+Navigate to the directory with your file has been downloaded
+```bash
+C:\Users\Rocks\Desktop\SmartChart>
+```
+Open VS code through the terminal
 ```bash
 code .
 ```
